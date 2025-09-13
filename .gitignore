@@ -1,0 +1,59 @@
+# === Go 相关 ===
+/bin/
+/build/
+/dist/
+/out/
+/coverage/
+/tmp/
+/*.exe
+/*.out
+/*.test
+*.log
+
+# Go module 缓存
+vendor/
+
+# === IDE/编辑器 相关 ===
+.vscode/
+.idea/
+*.iml
+.DS_Store
+
+# === Docker & Compose 相关 ===
+/docker/*/data/
+/docker/*/log/
+/docker/*/lib/
+/docker/*/etc
+
+# === 数据库相关 ===
+# 本地数据库数据（不要提交到 GitHub）
+/docker/postgres/data/
+/docker/mysql/data/
+
+# === Redis ===
+/docker/redis/data/
+
+# === RabbitMQ ===
+/docker/rabbitmq/lib/
+/docker/rabbitmq/log/
+/docker/rabbitmq/etc/
+
+# === MinIO ===
+/docker/minio/data/
+/docker/minio/config/
+
+# === 编译产物 ===
+*.o
+*.a
+*.so
+
+# === 覆盖率/测试报告 ===
+*.coverprofile
+*.lcov
+*.prof
+*.svg
+
+# === 临时文件 ===
+*.swp
+*.swo
+*~
