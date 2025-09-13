@@ -1,0 +1,15 @@
+app:
+  name: chat-room
+  mode: dev   # 开发环境
+
+db:
+  postgres:
+    # PostgreSQL DSN 格式: postgresql://USER:PASSWORD@HOST:PORT/DBNAME?sslmode=disable
+    dsn: "postgres://chat_room_user:chat_room_pass@127.0.0.1:12000/chat_room?sslmode=disable"
+
+mq:
+  RabbitMQ: amqp
+  RabbitMQHost: "127.0.0.1"
+  RabbitMQPort: "12008"   # Docker Compose 映射 5672 -> 12008
+  RabbitMQUser: "guest"
+  RabbitMQPassWord: "guest"

@@ -11,6 +11,8 @@
 *.log
 
 # Go module 缓存
+go.mod
+go.sum
 vendor/
 
 # === IDE/编辑器 相关 ===
