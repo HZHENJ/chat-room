@@ -4,14 +4,14 @@ services:
   # === PostgreSQL ===
   postgres:
     image: postgres:16
-    container_name: chatting-room_postgres
+    container_name: chat-room_postgres
     ports:
       - "12000:5432"
     environment:
       - TZ=Asia/Singapore
-      - POSTGRES_DB=chatting_room
-      - POSTGRES_USER=chatting_room_user
-      - POSTGRES_PASSWORD=chatting_room_pass
+      - POSTGRES_DB=chat_room
+      - POSTGRES_USER=chat_room_user
+      - POSTGRES_PASSWORD=chat_room_pass
     volumes:
       - ./docker/postgres/data:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
@@ -20,7 +20,7 @@ services:
   # === Redis ===
   redis:
     image: redis:alpine
-    container_name: chatting-room_redis
+    container_name: chat-room_redis
     ports:
       - "12003:6379"
     volumes:
@@ -33,7 +33,7 @@ services:
   rabbitmq:
     restart: always
     image: rabbitmq:3-management
-    container_name: chatting-room_rabbitmq
+    container_name: chat-room_rabbitmq
     hostname: chat-room-rabbit
     privileged: true #  给数据卷赋权限 避免启动出现Permission denied
     ports:
