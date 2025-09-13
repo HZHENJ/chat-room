@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  # === PostgreSQL ===
+  postgres:
+    image: postgres:16
+    container_name: chatting-room_postgres
+    ports:
+      - "12000:5432"
+    environment:
+      - TZ=Asia/Singapore
+      - POSTGRES_DB=chatting_room
+      - POSTGRES_USER=chatting_room_user
+      - POSTGRES_PASSWORD=chatting_room_pass
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+
+  # === Redis ===
+  redis:
+    image: redis:alpine
+    container_name: chatting-room_redis
+    ports:
+      - "12003:6379"
+    volumes:
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./docker/redis/data/:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: always
+
+  # === Rabbitmq ===
+  rabbitmq:
+    restart: always
+    image: rabbitmq:3-management
+    container_name: chatting-room_rabbitmq
+    hostname: chat-room-rabbit
+    privileged: true #  给数据卷赋权限 避免启动出现Permission denied
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      TZ: Asia/Singapore
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - ./docker/rabbitmq/lib:/var/lib/rabbitmq
+      - ./docker/rabbitmq/etc:/etc/rabbitmq
+      - ./docker/rabbitmq/log:/var/log/rabbitmq
+
