@@ -26,3 +26,11 @@ func _addMw() []app.HandlerFunc {
 func _add0Mw() []app.HandlerFunc {
 	return nil
 }
+
+func _dissolveMw() []app.HandlerFunc {
+	return nil
+}
+
+func _dissolve0Mw() []app.HandlerFunc {
+	return nil
+}

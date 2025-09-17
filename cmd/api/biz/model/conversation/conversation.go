@@ -25,3 +25,13 @@ type AddMemberResponse struct {
 	StatusCode int32  `json:"status_code"`
 	StatusMsg  string `json:"status_msg"`
 }
+
+type DissolveConversationRequest struct {
+	ConversationId int64 `json:"conversation_id"`
+	OwnerId        int64 `json:"owner_id"`
+}
+
+type DissolveConversationResponse struct {
+	StatusCode int32  `json:"status_code"`
+	StatusMsg  string `json:"status_msg"`
+}

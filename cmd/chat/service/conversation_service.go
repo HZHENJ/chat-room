@@ -146,3 +146,52 @@ func (s *ConversationService) AddMember(request *conversation.AddMemberRequest) 
 		StatusMsg:  errno.Success.ErrMsg,
 	}, nil
 }
+
+// DissolveConversation dissolve conversation
+func (s *ConversationService) DissolveConversation(request *conversation.DissolveConversationRequest) (
+	response *conversation.DissolveConversationResponse,
+	err error) {
+
+	// get conversation
+	conv, err := db.GetConversationById(s.ctx, request.ConversationId)
+	if err != nil {
+		return &conversation.DissolveConversationResponse{
+			StatusCode: errno.ConversationNotExistErr.ErrCode,
+			StatusMsg:  errno.ConversationNotExistErr.ErrMsg,
+		}, err
+	}
+
+	// check whether conversation is dissolve
+	if conv.Status != "active" {
+		return &conversation.DissolveConversationResponse{
+			StatusCode: errno.ConversationNotActiveErr.ErrCode,
+			StatusMsg:  errno.ConversationNotActiveErr.ErrMsg,
+		}, errno.ConversationNotActiveErr
+	}
+
+	// verify user id is owner id
+	if conv.OwnerID != request.OwnerId {
+		return &conversation.DissolveConversationResponse{
+			StatusCode: errno.ConversationPermissionDeniedErr.ErrCode,
+			StatusMsg:  errno.ConversationPermissionDeniedErr.ErrMsg,
+		}, errno.ConversationPermissionDeniedErr
+	}
+
+	// update status
+	// make sure it utc+8
+	now := time.Now()
+	conv.Status = "dissolved"
+	conv.DissolvedAt = &now
+
+	if err := db.UpdateConversation(s.ctx, conv); err != nil {
+		return &conversation.DissolveConversationResponse{
+			StatusCode: errno.ServiceErr.ErrCode,
+			StatusMsg:  errno.ServiceErr.ErrMsg,
+		}, err
+	}
+
+	return &conversation.DissolveConversationResponse{
+		StatusCode: errno.SuccessCode,
+		StatusMsg:  errno.SuccessMsg,
+	}, nil
+}

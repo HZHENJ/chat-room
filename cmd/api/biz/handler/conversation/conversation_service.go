@@ -41,3 +41,20 @@ func AddMember(ctx context.Context, c *app.RequestContext) {
 	}
 	c.JSON(consts.StatusOK, resp)
 }
+
+// DissolveConversation
+// @router /conversation/dissolve [POST]
+func DissolveConversation(ctx context.Context, c *app.RequestContext) {
+	var req conversation.DissolveConversationRequest
+	if err := c.BindAndValidate(&req); err != nil {
+		c.JSON(consts.StatusBadRequest, conv.ToHertzBaseResponse(errno.ParamErr))
+		return
+	}
+
+	resp, err := service.NewConversationService(ctx).DissolveConversation(&req)
+	if err != nil {
+		c.JSON(consts.StatusInternalServerError, conv.ToHertzBaseResponse(err))
+		return
+	}
+	c.JSON(consts.StatusOK, resp)
+}

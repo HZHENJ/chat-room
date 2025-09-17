@@ -18,5 +18,9 @@ func Register(r *server.Hertz) {
 			_add := _conv.Group("/add", _addMw()...)
 			_add.POST("/", append(_add0Mw(), conversation.AddMember)...)
 		}
+		{
+			_dissolve := _conv.Group("/dissolve", _dissolveMw()...)
+			_dissolve.POST("/", append(_dissolve0Mw(), conversation.DissolveConversation)...)
+		}
 	}
 }

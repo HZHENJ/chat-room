@@ -63,3 +63,9 @@ func AddMember(ctx context.Context, member *Member) (id int64, err error) {
 	id = member.ID
 	return
 }
+
+// UpdateConversation update conversation
+func UpdateConversation(ctx context.Context, conversation *Conversation) (err error) {
+	err = DB.WithContext(ctx).Save(conversation).Error
+	return
+}
