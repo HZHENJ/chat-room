@@ -25,3 +25,19 @@ func CreateConversation(ctx context.Context, c *app.RequestContext) {
 	}
 	c.JSON(consts.StatusOK, resp)
 }
+
+// AddMember
+// @route /conversation/add_member [POST]
+func AddMember(ctx context.Context, c *app.RequestContext) {
+	var req conversation.AddMemberRequest
+	if err := c.Bind(&req); err != nil {
+		c.JSON(consts.StatusBadRequest, conv.ToHertzBaseResponse(errno.ParamErr))
+		return
+	}
+	resp, err := service.NewConversationService(ctx).AddMember(&req)
+	if err != nil {
+		c.JSON(consts.StatusInternalServerError, conv.ToHertzBaseResponse(err))
+		return
+	}
+	c.JSON(consts.StatusOK, resp)
+}

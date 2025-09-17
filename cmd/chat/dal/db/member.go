@@ -1,6 +1,7 @@
 package db
 
 import (
+	"context"
 	"time"
 
 	"gorm.io/gorm"
@@ -23,4 +24,14 @@ type Member struct {
 
 func (Member) TableName() string {
 	return MemberTableName
+}
+
+func GetMember(ctx context.Context, conversationId, userId int64) (*Member, error) {
+	var member Member
+	if err := DB.WithContext(ctx).
+		Where("conversation_id = ? AND user_id = ?", conversationId, userId).
+		First(&member).Error; err != nil {
+		return nil, err
+	}
+	return &member, nil
 }

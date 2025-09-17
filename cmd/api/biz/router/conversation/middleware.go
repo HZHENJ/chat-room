@@ -18,3 +18,11 @@ func _createMw() []app.HandlerFunc {
 func _create0Mw() []app.HandlerFunc {
 	return nil
 }
+
+func _addMw() []app.HandlerFunc {
+	return nil
+}
+
+func _add0Mw() []app.HandlerFunc {
+	return nil
+}

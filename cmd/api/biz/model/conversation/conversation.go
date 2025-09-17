@@ -21,6 +21,7 @@ type AddMemberRequest struct {
 
 // AddMemberResponse
 type AddMemberResponse struct {
+	MemberId   int64  `json:"member_id"`
 	StatusCode int32  `json:"status_code"`
 	StatusMsg  string `json:"status_msg"`
 }

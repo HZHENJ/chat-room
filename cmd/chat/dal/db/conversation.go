@@ -44,3 +44,22 @@ func CreateConversation(ctx context.Context, conversation *Conversation) (id int
 	id = conversation.ID
 	return
 }
+
+// GetConversationById get conversation detail by conversation id
+func GetConversationById(ctx context.Context, id int64) (conversation *Conversation, err error) {
+	err = DB.WithContext(ctx).Where("id = ?", id).First(&conversation).Error
+	if err != nil {
+		return nil, err
+	}
+	return
+}
+
+// AddMember add member into conversation
+func AddMember(ctx context.Context, member *Member) (id int64, err error) {
+	err = DB.WithContext(ctx).Create(member).Error
+	if err != nil {
+		return -1, err
+	}
+	id = member.ID
+	return
+}

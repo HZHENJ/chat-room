@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// 测试 CreateConversation
+// Test CreateConversation
 func TestCreateConversation(t *testing.T) {
 	req := &apiConv.CreateConversationRequest{
 		Title:   "Test Group",
