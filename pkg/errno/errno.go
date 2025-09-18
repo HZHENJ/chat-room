@@ -22,6 +22,9 @@ const (
 	ConversationNotActiveErrCode
 	ConversationPermissionDeniedErrCode
 	UserAlreadyInConversationErrCode
+
+	// Message
+	MessageSendErrCode = 21000 + iota
 )
 
 const (
@@ -41,6 +44,9 @@ const (
 	ConversationNotActiveErrMsg        = "Conversation is not active"
 	ConversationPermissionDeniedErrMsg = "Permission denied for this conversation"
 	UserAlreadyInConversationErrMsg    = "User already in conversation"
+
+	// Message
+	MessageSendErrMsg = "Failed to send message"
 )
 
 type ErrNo struct {
@@ -78,6 +84,9 @@ var (
 	ConversationNotActiveErr        = ErrNo{ConversationNotActiveErrCode, ConversationNotActiveErrMsg}
 	ConversationPermissionDeniedErr = ErrNo{ConversationPermissionDeniedErrCode, ConversationPermissionDeniedErrMsg}
 	UserAlreadyInConversationErr    = ErrNo{UserAlreadyInConversationErrCode, UserAlreadyInConversationErrMsg}
+
+	// Message
+	MessageSendErr = ErrNo{MessageSendErrCode, MessageSendErrMsg}
 )
 
 // convert error to Errno
